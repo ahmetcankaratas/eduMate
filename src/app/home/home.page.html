@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="presentAlertPrompt()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      eduMate
+      <ion-icon name="diamond-outline" size="medium"></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button (click)="oncekiGun(gun)">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{gun}} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="sonrakiGun(gun)">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngFor="let item of items | async" color="light">
+    <ion-card-content>
+      <ion-label><b>Etkinlik:</b> {{item.payload.doc.data().konu}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label><b>Tarihi:</b> {{item.payload.doc.data().tarih}}</ion-label>
+    </ion-card-content>
+    <ion-card-content>
+      <ion-label><b>Saati:</b> {{item.payload.doc.data().saat}}</ion-label>
+    </ion-card-content>
+    <ion-item>
+      <ion-label>Katılım?</ion-label>
+      <ion-checkbox color="success" slot="end"></ion-checkbox>
+    </ion-item>
+    <ion-card-content>
+      <ion-button
+        shape="round"
+        color="success"
+        size="small"
+        (click)="duzenle(item.payload.doc.id,item.payload.doc.data())"
+      >
+        <ion-icon size="small" slot="icon-only" name="create"></ion-icon>
+      </ion-button>
+      <ion-button
+        shape="round"
+        color="danger"
+        size="small"
+        (click)="presentAlertConfirm(item.payload.doc.id)"
+      >
+        <ion-icon size="small" slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
